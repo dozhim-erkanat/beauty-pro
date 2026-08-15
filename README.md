@@ -137,3 +137,15 @@ supabase/
 - Ключ `anon` публичный по замыслу — он не даёт прав сверх политик RLS.
   Сервисный ключ (`service_role`) в проекте не используется и не должен
   попадать в код.
+
+## Адреса
+
+- Сайт: https://beauty-pro-nine.vercel.app
+- Админка: https://beauty-pro-nine.vercel.app/admin
+- Проект Supabase: `mqvjmaoszoktoofxckhb` (регион West EU, Ireland)
+
+Повторный деплой после изменений:
+
+```bash
+vercel deploy --prod --yes
+```

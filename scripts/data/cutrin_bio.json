@@ -1,0 +1,122 @@
+[
+ {
+  "ean": "6412600550009",
+  "name": "CUTRIN BIO+ Hydra Balance Шампунь 250 мл",
+  "slug": "cutrin-hydra-balance-shampoo-250",
+  "short": "Увлажняющий шампунь для сухой кожи головы",
+  "desc": "Мягко очищает и увлажняет сухую, склонную к стянутости кожу головы. Подходит для ежедневного применения, в том числе для окрашенных волос.",
+  "volume": "250 мл",
+  "order": 1,
+  "featured": true,
+  "local": "img/6412600550009.jpg",
+  "src_name": "CUTRIN BIO+ Hydra Balance Shampoo 250 ml"
+ },
+ {
+  "ean": "6412600550016",
+  "name": "CUTRIN BIO+ Hydra Balance Кондиционер 200 мл",
+  "slug": "cutrin-hydra-balance-conditioner-200",
+  "short": "Увлажняющий кондиционер для сухих волос",
+  "desc": "Возвращает волосам мягкость и облегчает расчёсывание, не утяжеляя их. Дополняет шампунь той же линии.",
+  "volume": "200 мл",
+  "order": 2,
+  "featured": false,
+  "local": "img/6412600550016.jpg",
+  "src_name": "CUTRIN BIO+ Hydra Balance Conditioner 200 ml"
+ },
+ {
+  "ean": "6412600550023",
+  "name": "CUTRIN BIO+ Hydra Balance Уход для кожи головы 75 мл",
+  "slug": "cutrin-hydra-balance-scalp-treatment-75",
+  "short": "Успокаивающий несмываемый уход",
+  "desc": "Успокаивает и увлажняет сухую кожу головы, снимает ощущение стянутости и зуд. Наносится на кожу головы и не смывается.",
+  "volume": "75 мл",
+  "order": 3,
+  "featured": true,
+  "local": "img/6412600550023.jpg",
+  "src_name": "CUTRIN BIO+ Hydra Balance Scalp Treatment 75 ml"
+ },
+ {
+  "ean": "6412600550047",
+  "name": "CUTRIN BIO+ Active Шампунь против перхоти 250 мл",
+  "slug": "cutrin-active-anti-dandruff-shampoo-250",
+  "short": "Шампунь против перхоти для жирной кожи головы",
+  "desc": "Уменьшает шелушение и жирность кожи головы, помогает контролировать перхоть при регулярном применении.",
+  "volume": "250 мл",
+  "order": 4,
+  "featured": true,
+  "local": "img/6412600550047.jpg",
+  "src_name": "CUTRIN BIO+ Active Anti-Dandruff Shampoo 250 ml"
+ },
+ {
+  "ean": "6412600550061",
+  "name": "CUTRIN BIO+ Active Уход против перхоти 100 мл",
+  "slug": "cutrin-active-anti-dandruff-scalp-treatment-100",
+  "short": "Несмываемая сыворотка против перхоти",
+  "desc": "Действует между мытьём головы: снижает шелушение и зуд. Используется вместе с шампунем линии Active.",
+  "volume": "100 мл",
+  "order": 5,
+  "featured": false,
+  "local": "img/6412600550061.jpg",
+  "src_name": "CUTRIN BIO+ Active Anti-Dandruff Scalp Treatment 100 ml"
+ },
+ {
+  "ean": "6412600550078",
+  "name": "CUTRIN BIO+ Energy Boost Шампунь для мужчин 250 мл",
+  "slug": "cutrin-energy-boost-shampoo-men-250",
+  "short": "Шампунь при раннем выпадении волос",
+  "desc": "Разработан для мужчин с ранним выпадением волос. Очищает кожу головы и поддерживает здоровье волосяных луковиц.",
+  "volume": "250 мл",
+  "order": 6,
+  "featured": false,
+  "local": "img/6412600550078.jpg",
+  "src_name": "CUTRIN BIO+ Energy Boost Shampoo For Men 250 ml"
+ },
+ {
+  "ean": "6412600550092",
+  "name": "CUTRIN BIO+ Укрепляющий шампунь для женщин 250 мл",
+  "slug": "cutrin-strengthening-shampoo-women-250",
+  "short": "Шампунь при истончении волос",
+  "desc": "Для женщин с тонкими, редеющими волосами и для тех, кто отращивает длину. Укрепляет волосы по всей длине.",
+  "volume": "250 мл",
+  "order": 7,
+  "featured": true,
+  "local": "img/6412600550092.jpg",
+  "src_name": "CUTRIN BIO+ Strengthening Shampoo For Women 250 ml"
+ },
+ {
+  "ean": "6412600550146",
+  "name": "CUTRIN BIO+ Re-Balance Шампунь 250 мл",
+  "slug": "cutrin-re-balance-shampoo-250",
+  "short": "Шампунь для жирной кожи головы",
+  "desc": "Нормализует работу сальных желёз, дольше сохраняет свежесть у корней. Подходит для частого мытья.",
+  "volume": "250 мл",
+  "order": 8,
+  "featured": false,
+  "local": "img/6412600550146.jpg",
+  "src_name": "CUTRIN BIO+ Re-Balance Shampoo 250 ml"
+ },
+ {
+  "ean": "6412600550153",
+  "name": "CUTRIN BIO+ Re-Balance Спрей-уход 200 мл",
+  "slug": "cutrin-re-balance-care-spray-200",
+  "short": "Спрей для жирной кожи головы",
+  "desc": "Лёгкий несмываемый спрей: освежает кожу головы и продлевает эффект шампуня Re-Balance.",
+  "volume": "200 мл",
+  "order": 9,
+  "featured": false,
+  "local": "img/6412600550153.jpg",
+  "src_name": "CUTRIN BIO+ Re-Balance Care Spray 200 ml"
+ },
+ {
+  "ean": "6412600550160",
+  "name": "CUTRIN BIO+ Detox Уход для кожи головы 75 мл",
+  "slug": "cutrin-detox-scalp-treatment-75",
+  "short": "Детокс-уход перед мытьём",
+  "desc": "Очищает кожу головы от остатков стайлинга и жёсткой воды. Наносится до мытья, затем смывается шампунем.",
+  "volume": "75 мл",
+  "order": 10,
+  "featured": false,
+  "local": "img/6412600550160.jpg",
+  "src_name": "CUTRIN BIO+ Detox Scalp Treatment 75 ml"
+ }
+]

@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Beauty Pro — каталог с админкой
 
-## Getting Started
+Сайт-каталог: бренды → категории → товары с ценами в тенге, поиск и фильтры,
+корзина с оформлением заказа, заявки на товар и админ-панель для управления
+всем каталогом.
 
-First, run the development server:
+Стек: Next.js 16 (App Router) + React 19 + Tailwind CSS 4 + Supabase (Postgres,
+Auth, Storage). Деплой — Vercel.
+
+---
+
+## Запуск за 5 шагов
+
+### 1. Создать проект в Supabase
+
+[supabase.com](https://supabase.com) → New project. Регион ближе к клиентам
+(например, `eu-central-1`). Пароль базы сохраните.
+
+### 2. Выполнить SQL
+
+Supabase → **SQL Editor** → New query → вставить целиком содержимое
+[`supabase/schema.sql`](supabase/schema.sql) → **Run**.
+
+Скрипт создаёт таблицы, права доступа (RLS), функцию оформления заказа и
+хранилище картинок `media`. Запускать повторно безопасно.
+
+Хотите увидеть сайт с демо-товарами — выполните ещё и
+[`supabase/seed.sql`](supabase/seed.sql).
+
+### 3. Завести администратора
+
+Supabase → **Authentication → Users** → **Add user** → Create new user, укажите
+email и пароль. Это и есть логин в админку.
+
+Там же в **Authentication → Sign In / Providers** **отключите публичную
+регистрацию** (Allow new users to sign up). Иначе админом сможет стать любой,
+кто зарегистрируется: права в базе выданы всем авторизованным пользователям.
+
+### 4. Прописать переменные окружения
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Значения — в Supabase → **Project Settings → API**:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Переменная | Где взять |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon / public key |
+| `NEXT_PUBLIC_SITE_NAME` | название сайта в шапке, по умолчанию `Beauty Pro` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Запустить
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+- Сайт — http://localhost:3000
+- Админка — http://localhost:3000/admin
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Как наполнять каталог
 
-## Deploy on Vercel
+Порядок важен: товар нельзя создать без бренда.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Бренды** → «Добавить бренд». Название, логотип, описание.
+2. **Категории** → «Добавить категорию», выбрать бренд.
+3. **Товары** → «Добавить товар»: бренд, категория, цена, фото,
+   характеристики.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Полезные мелочи в админке:
+
+- **Цена пустая** → на сайте выводится «Цена по запросу», клиент оформляет
+  заявку. Старая цена заполняется только чтобы показать скидку.
+- **Адрес (slug)** можно не заполнять — сгенерируется из названия с
+  транслитерацией: «Лазерная эпиляция» → `lazernaya-epilyaciya`.
+- **Показывать на сайте** — быстрый переключатель прямо в списке товаров;
+  скрытый товар недоступен и по прямой ссылке.
+- **Показать на главной** — товар попадает в блок «Популярные товары».
+- **Первое фото** товара используется как основное в каталоге; порядок фото
+  меняется стрелками.
+- **Настройки** — телефон, WhatsApp, email, адрес, Instagram и описание
+  компании; подставляются в шапку, подвал и страницу «Контакты».
+
+## Заказы и заявки
+
+- **Заказы** — из корзины. Суммы и состав пересчитываются на сервере по данным
+  базы, а не по тому, что пришло из браузера.
+- **Заявки** — кнопка «Оставить заявку» на карточке товара и форма на странице
+  контактов.
+
+Статусы: Новый → В работе → Завершён / Отменён. Оплаты на сайте нет — менеджер
+связывается с клиентом сам.
+
+## Деплой на Vercel
+
+1. Залить репозиторий на GitHub.
+2. Vercel → New Project → импортировать репозиторий.
+3. В Environment Variables добавить те же три переменные из `.env.local`.
+4. Deploy.
+
+При смене `NEXT_PUBLIC_SUPABASE_URL` нужен новый деплой: домен Supabase
+подставляется в разрешённые источники картинок в
+[`next.config.ts`](next.config.ts) на этапе сборки.
+
+## Структура
+
+```
+src/
+  app/
+    (site)/            публичный сайт: главная, каталог, бренды, товар, корзина, контакты
+    admin/             админка: /admin/login и защищённая группа (dash)
+    actions.ts         заявки и оформление заказа (действия посетителя)
+  components/          UI сайта и админки
+  lib/
+    supabase/          клиенты Supabase для сервера и браузера
+    queries.ts         запросы каталога
+    auth.ts            проверка прав администратора
+    cart-store.ts      корзина в localStorage
+  proxy.ts             продление сессии Supabase (бывший middleware.ts)
+supabase/
+  schema.sql           таблицы, права, функция заказа, бакет картинок
+  seed.sql             демо-данные
+```
+
+## Безопасность
+
+- Права разграничены на уровне базы (RLS): анонимный посетитель читает только
+  активные записи каталога и может создать заказ или заявку; всё остальное —
+  только для авторизованного администратора.
+- Каждое действие админки отдельно проверяет права через `requireAdmin()`:
+  Server Actions — это обычные POST-эндпоинты, проверки в layout для них
+  недостаточно.
+- Ключ `anon` публичный по замыслу — он не даёт прав сверх политик RLS.
+  Сервисный ключ (`service_role`) в проекте не используется и не должен
+  попадать в код.

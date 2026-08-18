@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { leadMessage, orderMessage, sendWhatsApp } from "@/lib/green-api";
 
 export type FormState = { ok: boolean; message: string } | null;
 
@@ -38,6 +39,15 @@ export async function createLead(
   if (error) {
     return { ok: false, message: "Не удалось отправить заявку. Попробуйте ещё раз." };
   }
+
+  // Заявка уже в базе — сбой уведомления не должен показываться клиенту.
+  const sent = await sendWhatsApp(
+    leadMessage({ name, phone, comment, productName }),
+  );
+  if (!sent.ok && sent.error !== "Green API не настроен") {
+    console.error("[green-api] заявка не ушла в WhatsApp:", sent.error);
+  }
+
   return { ok: true, message: "Заявка отправлена — мы свяжемся с вами." };
 }
 
@@ -87,6 +97,36 @@ export async function createOrder(
         ? "Товары из корзины больше недоступны."
         : "Не удалось оформить заказ. Попробуйте позже.",
     };
+  }
+
+  // Названия и цены для уведомления перечитываем из базы: корзина приходит
+  // из браузера и подделывается, в WhatsApp должна уйти настоящая сумма.
+  const { data: rows } = await supabase
+    .from("products")
+    .select("id, name, price")
+    .in("id", items.map((i) => i.id));
+
+  const byId = new Map((rows ?? []).map((p) => [p.id, p]));
+  const realItems = items
+    .filter((i) => byId.has(i.id))
+    .map((i) => ({
+      name: byId.get(i.id)!.name,
+      price: byId.get(i.id)!.price,
+      quantity: i.quantity,
+    }));
+
+  const sent = await sendWhatsApp(
+    orderMessage({
+      orderNumber: data,
+      name,
+      phone,
+      email: customer.email.trim(),
+      comment: customer.comment.trim(),
+      items: realItems,
+    }),
+  );
+  if (!sent.ok && sent.error !== "Green API не настроен") {
+    console.error("[green-api] заказ не ушёл в WhatsApp:", sent.error);
   }
 
   return { ok: true, orderNumber: data };

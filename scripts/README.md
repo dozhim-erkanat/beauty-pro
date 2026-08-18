@@ -8,8 +8,17 @@
 
 | Скрипт | Бренд | Товаров | Источник |
 | --- | --- | --- | --- |
-| `import_cutrin.py` | Cutrin, категория BIO+ | 10 | cutrin.fi |
+| `import_cutrin_all.py` | Cutrin, 6 потребительских линий | 94 | cutrin.fi |
 | `import_marmara.py` | Marmara Barber, категория Парфюмерия | 10 | marmarabarber.com |
+| `import_cutrin.py` | первый заход по BIO+ (10 позиций) | — | оставлен для истории |
+
+Линии Cutrin: AINOA (33), BIO+ (22), MUOTO (18), VIENO (16), ROUTA (4),
+HOHDE (1). Профессиональные линии (AURORA, PROMISE) не импортированы: там
+183 оттенка красок, которые правильнее заводить вариантами одного товара.
+
+`prepare_cutrin.py` — нормализация названий (убирает «NEW», КАПС и двойные
+пробелы, `ml` → `мл`) и словарь переводов описаний на русский. Запускается до
+импорта и готовит `data/cutrin_consumer_lines.json`.
 
 Описания переведены на русский вручную и лежат в `data/*.json` — там же
 объёмы, штрихкоды и характеристики.
@@ -24,7 +33,7 @@ export ANON=$(grep NEXT_PUBLIC_SUPABASE_ANON_KEY .env.local | cut -d= -f2)
 export ADMIN_EMAIL=почта-администратора
 export ADMIN_PASSWORD=пароль
 
-python3 scripts/import_cutrin.py
+python3 scripts/import_cutrin_all.py
 python3 scripts/import_marmara.py
 ```
 
@@ -43,8 +52,8 @@ python3 scripts/import_marmara.py
 
 ## Цены
 
-- **Cutrin** — цен нет: на сайте бренда это закрытый B2B-каталог. Товары
-  импортированы как «Цена по запросу», проставлять нужно вручную.
+- **Cutrin** — цен нет: на сайте бренда это закрытый B2B-каталог. Все 94
+  товара импортированы как «Цена по запросу», проставлять нужно вручную.
 - **Marmara Barber** — цены пересчитаны из турецких лир по курсу
   `1 ₺ = 9.700723 ₸` на 15.08.2026, округление вверх до 10 ₸, без наценки.
   Курс задан константой `RATE` в начале скрипта.

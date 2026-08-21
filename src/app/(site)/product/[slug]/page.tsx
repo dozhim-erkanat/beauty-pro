@@ -5,8 +5,9 @@ import { AddToCartButton } from "@/components/add-to-cart-button";
 import { LeadForm } from "@/components/lead-form";
 import { ProductCard } from "@/components/product-card";
 import { ProductGallery } from "@/components/product-gallery";
+import { WhatsAppOrderButton } from "@/components/whatsapp-order-button";
 import { formatPrice } from "@/lib/format";
-import { getProductBySlug, getRelatedProducts } from "@/lib/queries";
+import { getProductBySlug, getRelatedProducts, getSettings } from "@/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,10 @@ export default async function ProductPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const related = await getRelatedProducts(product);
+  const [related, settings] = await Promise.all([
+    getRelatedProducts(product),
+    getSettings(),
+  ]);
   const discount =
     product.old_price && product.price && product.old_price > product.price
       ? Math.round((1 - product.price / product.old_price) * 100)
@@ -116,6 +120,15 @@ export default async function ProductPage({
                 image: product.images[0] ?? null,
               }}
             />
+            {settings.whatsapp && (
+              <WhatsAppOrderButton
+                phone={settings.whatsapp}
+                productName={product.name}
+                productSlug={product.slug}
+                price={product.price}
+                sku={product.sku}
+              />
+            )}
             <LeadForm productId={product.id} productName={product.name} />
           </div>
 

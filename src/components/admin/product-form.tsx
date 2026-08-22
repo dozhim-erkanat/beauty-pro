@@ -97,7 +97,10 @@ export function ProductForm({
           >
             <input name="slug" defaultValue={product?.slug} className="field" />
           </Labeled>
-          <Labeled label="Артикул">
+          <Labeled
+            label="Артикул"
+            hint="Оставьте пустым — присвоим сами, например CUT-01042."
+          >
             <input
               name="sku"
               defaultValue={product?.sku ?? ""}

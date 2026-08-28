@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { saveSettings, type ActionState } from "@/app/admin/actions";
+import { ImageUploader } from "@/components/admin/image-uploader";
 import { FormMessage, Labeled, SubmitButton } from "@/components/admin/ui";
 
 const FIELDS: { key: string; label: string; hint?: string; textarea?: boolean }[] =
@@ -31,6 +32,17 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
 
   return (
     <form action={formAction} className="mt-6 max-w-xl space-y-5">
+      <Labeled
+        label="Логотип сайта"
+        hint="Показывается в шапке вместо названия. Лучше PNG с прозрачным фоном."
+      >
+        <ImageUploader
+          name="logo_url"
+          folder="site"
+          defaultValue={settings.logo_url ? [settings.logo_url] : []}
+        />
+      </Labeled>
+
       {FIELDS.map((field) => (
         <Labeled key={field.key} label={field.label} hint={field.hint}>
           {field.textarea ? (

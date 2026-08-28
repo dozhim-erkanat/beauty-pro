@@ -249,6 +249,7 @@ export async function deleteLead(formData: FormData) {
 // ---------------------------------------------------------------------
 
 const SETTING_KEYS = [
+  "logo_url",
   "phone",
   "whatsapp",
   "email",

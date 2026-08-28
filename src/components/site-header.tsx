@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -11,9 +12,11 @@ const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || "Beauty Pro";
 export function SiteHeader({
   brands,
   phone,
+  logoUrl,
 }: {
   brands: Brand[];
   phone?: string;
+  logoUrl?: string;
 }) {
   const { count, ready } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,11 +44,21 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur">
       <div className="container-page flex h-16 items-center gap-4">
-        <Link
-          href="/"
-          className="shrink-0 text-lg font-semibold tracking-tight text-ink"
-        >
-          {SITE_NAME}
+        <Link href="/" className="shrink-0" aria-label={SITE_NAME}>
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={SITE_NAME}
+              width={160}
+              height={46}
+              priority
+              className="h-7 w-auto md:h-8"
+            />
+          ) : (
+            <span className="text-lg font-semibold tracking-tight text-ink">
+              {SITE_NAME}
+            </span>
+          )}
         </Link>
 
         <nav className="ml-4 hidden items-center gap-1 text-sm lg:flex">

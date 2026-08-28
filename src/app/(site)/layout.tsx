@@ -14,7 +14,11 @@ export default async function SiteLayout({
   return (
     <>
       <Suspense fallback={<div className="h-16 border-b border-line" />}>
-        <SiteHeader brands={brands} phone={settings.phone} />
+        <SiteHeader
+          brands={brands}
+          phone={settings.phone}
+          logoUrl={settings.logo_url}
+        />
       </Suspense>
       <main className="flex-1">{children}</main>
       <SiteFooter brands={brands} settings={settings} />
